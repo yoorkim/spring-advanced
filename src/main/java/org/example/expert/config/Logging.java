@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 public class Logging {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
 
     @Around("execution(* org.example.expert.domain.comment.controller.CommentAdminController.deleteComment(..)) || " +
@@ -29,13 +28,7 @@ public class Logging {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         // 요청한 사용자의 ID 추출
-        Long userId = null;
-        String authorizationHeader = request.getHeader("Authorization");
-
-        if (authorizationHeader != null) {
-            String token = jwtUtil.substringToken(authorizationHeader);
-            userId = Long.parseLong(jwtUtil.extractClaims(token).getSubject());
-        }
+        Long userId = (Long) request.getAttribute("userId");
 
         Object[] args = joinPoint.getArgs();
         String requestBody = "N/A";  // 기본값 설정
