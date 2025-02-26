@@ -1,4 +1,4 @@
-package org.example.expert.config;
+package org.example.expert.common.logging;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Aspect
 @Component
 @RequiredArgsConstructor
-public class Logging {
+public class AdminLoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final ObjectMapper objectMapper;
